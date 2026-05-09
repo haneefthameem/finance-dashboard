@@ -1,0 +1,9 @@
+
+CREATE DATABASE IF NOT EXISTS finance_dashboard;
+USE finance_dashboard;
+
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
