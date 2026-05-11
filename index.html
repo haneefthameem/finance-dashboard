@@ -757,7 +757,7 @@ function addSABank(){
 function delSABank(id){D.saBanks=D.saBanks.filter(b=>b.id!==id);save();renderSABanks();renderOv();}
 
 function renderHist(){
-  const sorted=[...D.slHist].sort((a,b)=>a.date.localeCompare(b.date));
+  const sorted=[...D.slHist].sort((a,b)=>b.date.localeCompare(a.date));
   const mx=sorted.reduce((m,e)=>Math.max(m,e.lkr),1);
   const h=sorted.map(e=>`<tr><td>${e.date}</td><td>LKR ${fmt(e.lkr)}</td><td>${(e.lkr/mx).toFixed(4)}</td><td><button class="btn-del" onclick="delHist(${e.id})">✕</button></td></tr>`).join('');
   document.getElementById('hist-tbody').innerHTML=h||'<tr><td colspan="4" class="empty">No entries</td></tr>';
