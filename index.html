@@ -37,7 +37,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .met-sub{font-size:11px;color:var(--t3);margin-top:3px}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
 .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:14px}
-@media(max-width:680px){.g2,.g3{grid-template-columns:1fr}}
+.g4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:14px;margin-bottom:14px}
+@media(max-width:680px){.g2,.g3,.g4{grid-template-columns:1fr}}
+@media(min-width:681px) and (max-width:900px){.g4{grid-template-columns:1fr 1fr}}
 .card{background:var(--card);border:1px solid var(--bdr);border-radius:var(--rl);padding:16px 18px;margin-bottom:14px}
 .card-t{font-size:11px;font-weight:600;color:var(--t2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px}
 .divider{height:1px;background:var(--bdr);margin:14px 0}
@@ -295,10 +297,11 @@ input.cell-inp{border:none;background:transparent;font-size:13px;font-family:inh
 
 <!-- ═══════════ SEETU ═══════════ -->
 <div id="sec-seetu" class="sec">
-  <div class="g3">
+  <div class="g4">
     <div class="met"><div class="met-lbl">Nuskiya total paid</div><div class="met-val" id="sk-n">—</div></div>
     <div class="met"><div class="met-lbl">Home total paid <span class="bdg bdg-g" style="margin-left:4px;font-size:10px">✓ Finished</span></div><div class="met-val" id="sk-h">—</div></div>
     <div class="met"><div class="met-lbl">Foujana total paid <span class="bdg bdg-g" style="margin-left:4px;font-size:10px">✓ Finished</span></div><div class="met-val" id="sk-f">—</div></div>
+    <div class="met"><div class="met-lbl">Nishtha total paid</div><div class="met-val" id="sk-nt">—</div></div>
   </div>
   <div class="tip">Double-click any date or amount cell to edit. All data auto-saves.</div>
 
@@ -351,6 +354,23 @@ input.cell-inp{border:none;background:transparent;font-size:13px;font-family:inh
     </div>
     <div class="fg" style="margin-bottom:10px"><label>Note</label><input type="text" id="fj-n" placeholder="optional"></div>
     <button class="btn btn-p btn-sm" onclick="addSeetu('fouj')">+ Add entry</button>
+  </div>
+
+  <div class="card">
+    <div class="card-t" style="color:var(--purplet)">Nishtha — LKR 50,000/month</div>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>Date</th><th>Amount (LKR)</th><th>Month #</th><th>Note</th><th></th></tr></thead>
+      <tbody id="nishtha-tbody"></tbody>
+      <tfoot><tr class="tfoot-row"><td>Total</td><td id="nishtha-tot">—</td><td></td><td></td><td></td></tr></tfoot>
+    </table></div>
+    <div class="divider"></div>
+    <div class="form-row3">
+      <div class="fg"><label>Date</label><input type="date" id="nt-d"></div>
+      <div class="fg"><label>Amount (LKR)</label><input type="number" id="nt-a" value="50000"></div>
+      <div class="fg"><label>Month # (auto if blank)</label><input type="number" id="nt-m" placeholder="auto"></div>
+    </div>
+    <div class="fg" style="margin-bottom:10px"><label>Note</label><input type="text" id="nt-n" placeholder="optional"></div>
+    <button class="btn btn-p btn-sm" onclick="addSeetu('nishtha')">+ Add entry</button>
   </div>
 </div>
 
@@ -414,15 +434,15 @@ input.cell-inp{border:none;background:transparent;font-size:13px;font-family:inh
 const DEF = {
   rates:{usd:320,sar:78},
   slBanks:[
-    {id:1,name:'Commercial LKR',lkr:27235,usd:0,accno:''},
-    {id:2,name:'Commercial USD',lkr:154875,usd:525,accno:'5000483686'},
+    {id:1,name:'Commercial LKR',lkr:399.21,usd:0,accno:''},
+    {id:2,name:'Commercial USD',lkr:277.3,usd:0.94,accno:'5000483686'},
     {id:3,name:'Peoples Bank USD',lkr:0,usd:0,accno:''},
-    {id:4,name:'Peoples Bank LKR',lkr:0,usd:0,accno:''},
+    {id:4,name:'Peoples Bank LKR',lkr:20140,usd:0,accno:''},
     {id:5,name:'BOC',lkr:0,usd:0,accno:''}
   ],
   saBanks:[
     {id:1,name:'Barq',sar:0,note:''},
-    {id:2,name:'Al Rajhi',sar:231,note:''},
+    {id:2,name:'Al Rajhi',sar:87,note:''},
     {id:3,name:'STC Bank',sar:6,note:''},
     {id:4,name:'Mobily Pay',sar:5,note:''}
   ],
@@ -430,10 +450,11 @@ const DEF = {
     {id:1,date:'2025-05-12',lkr:686131},{id:2,date:'2025-05-14',lkr:626106},
     {id:3,date:'2025-06-08',lkr:615830},{id:4,date:'2025-06-13',lkr:596322},
     {id:5,date:'2025-06-27',lkr:482417},{id:6,date:'2025-07-04',lkr:981984},
-    {id:7,date:'2025-07-07',lkr:924438},{id:8,date:'2025-07-31',lkr:714945},
+    {id:7,date:'2025-07-07',lkr:924438.2},{id:8,date:'2025-07-31',lkr:714945.2},
     {id:9,date:'2025-08-16',lkr:797951},{id:10,date:'2025-04-09',lkr:915000},
     {id:11,date:'2025-09-30',lkr:480465},{id:12,date:'2025-12-25',lkr:254090},
-    {id:13,date:'2026-01-09',lkr:648422},{id:14,date:'2026-05-09',lkr:200986}
+    {id:13,date:'2026-01-09',lkr:648422},{id:14,date:'2026-05-09',lkr:200986},
+    {id:15,date:'2026-06-18',lkr:28461}
   ],
   gold:[
     {id:1,desc:'Gold asset',value:300000,detail:'LKR 300,000 value'},
@@ -448,7 +469,7 @@ const DEF = {
     {id:13,month:'2025-06',amount:7405},{id:14,month:'2025-07',amount:3880},{id:15,month:'2025-08',amount:3835},
     {id:16,month:'2025-09',amount:3810},{id:17,month:'2025-10',amount:4393},{id:18,month:'2025-12',amount:3390},
     {id:19,month:'2026-01',amount:6280},{id:20,month:'2026-02',amount:4890},{id:21,month:'2026-03',amount:4010},
-    {id:22,month:'2026-04',amount:8370},{id:23,month:'2026-05',amount:2372}
+    {id:22,month:'2026-04',amount:8370},{id:23,month:'2026-05',amount:2372},{id:24,month:'2026-06',amount:3700}
   ],
   stocks:[
     {id:1,date:'2025-09-30',type:'OP',tno:'OPBAL',part:'Opening Balance at 2025-09-30',shares:0,price:0,amt:-50000,bal:-50000,settle:'',sold:null,real:null,rp:null,up:null},
@@ -459,7 +480,7 @@ const DEF = {
     {id:6,date:'2025-10-01',type:'B',tno:'2025952698',part:'Purchase of DIMO.N0000',shares:2,price:2220,amt:4489.73,bal:-696.41,settle:'2025-10-03',sold:null,real:null,rp:null,up:null}
   ],
   loans:[
-    {id:1,person:'Anne',amount:'1,250 SAR',date:'2026-05-09',note:'',paid:false},
+    {id:1,person:'Anne',amount:'1,500 SAR',date:'2026-05-09',note:'',paid:false},
     {id:2,person:'Fowjana',amount:'20,000 LKR',date:'2026-05-09',note:'',paid:false}
   ],
   nusk:[
@@ -477,7 +498,7 @@ const DEF = {
     {id:23,date:'2025-11-01',amount:50000,mon:23,note:''},{id:24,date:'2025-12-12',amount:50000,mon:24,note:''},
     {id:25,date:'2026-01-10',amount:50000,mon:25,note:''},{id:26,date:'2026-02-22',amount:50000,mon:26,note:''},
     {id:27,date:'2026-03-10',amount:50000,mon:27,note:''},{id:28,date:'2026-04-15',amount:50000,mon:28,note:''},
-    {id:29,date:'2026-05-09',amount:50000,mon:29,note:''}
+    {id:29,date:'2026-05-09',amount:50000,mon:29,note:''},{id:30,date:'2026-05-22',amount:50000,mon:30,note:''}
   ],
   home:[
     {id:1,date:'2024-01-27',amount:40000,mon:1,note:''},{id:2,date:'2024-02-27',amount:40000,mon:2,note:''},
@@ -496,11 +517,17 @@ const DEF = {
     {id:27,date:'2026-03-26',amount:40000,mon:27,note:''},{id:28,date:'2026-04-23',amount:40000,mon:28,note:''}
   ],
   fouj:[
-    {id:1,date:'2025-08-10',amount:10000,mon:1,note:''},{id:2,date:'2025-09-04',amount:10000,mon:2,note:''},
-    {id:3,date:'2025-10-06',amount:10000,mon:3,note:''},{id:4,date:'2025-11-30',amount:10000,mon:4,note:''},
+    {id:1,date:'2025-10-08',amount:10000,mon:1,note:''},{id:2,date:'2025-04-09',amount:10000,mon:2,note:''},
+    {id:3,date:'2025-06-10',amount:10000,mon:3,note:''},{id:4,date:'2025-11-30',amount:10000,mon:4,note:''},
     {id:5,date:'2025-12-10',amount:10000,mon:5,note:''},{id:6,date:'2026-01-09',amount:10000,mon:6,note:''},
     {id:7,date:'2026-02-12',amount:10000,mon:7,note:''},{id:8,date:'2026-03-10',amount:10000,mon:8,note:''},
-    {id:9,date:'2026-04-06',amount:10000,mon:9,note:''}
+    {id:9,date:'2026-04-06',amount:10000,mon:9,note:''},
+    {id:10,date:'2025-09-25',amount:90000,mon:null,note:'50,000 seetu amount received on September 25'},
+    {id:11,date:'2025-09-25',amount:90000,mon:null,note:'Payout received'}
+  ],
+  nishtha:[
+    {id:1,date:'2026-05-26',amount:50000,mon:1,note:''},
+    {id:2,date:'2026-05-27',amount:50000,mon:2,note:''}
   ],
   umrahSaved:0,
   lastUpdated:new Date().toISOString()
@@ -757,7 +784,7 @@ function addSABank(){
 function delSABank(id){D.saBanks=D.saBanks.filter(b=>b.id!==id);save();renderSABanks();renderOv();}
 
 function renderHist(){
-  const sorted=[...D.slHist].sort((a,b)=>b.date.localeCompare(a.date));
+  const sorted=[...D.slHist].sort((a,b)=>a.date.localeCompare(b.date));
   const mx=sorted.reduce((m,e)=>Math.max(m,e.lkr),1);
   const h=sorted.map(e=>`<tr><td>${e.date}</td><td>LKR ${fmt(e.lkr)}</td><td>${(e.lkr/mx).toFixed(4)}</td><td><button class="btn-del" onclick="delHist(${e.id})">✕</button></td></tr>`).join('');
   document.getElementById('hist-tbody').innerHTML=h||'<tr><td colspan="4" class="empty">No entries</td></tr>';
@@ -861,9 +888,10 @@ function renderAllSeetu(){
   renderSeetuTbl('nusk','nusk-tbody','nusk-tot','sk-n');
   renderSeetuTbl('home','home-tbody','home-tot','sk-h');
   renderSeetuTbl('fouj','fouj-tbody','fouj-tot','sk-f');
+  renderSeetuTbl('nishtha','nishtha-tbody','nishtha-tot','sk-nt');
 }
 function addSeetu(key){
-  const px={nusk:'nk',home:'hm',fouj:'fj'}[key];
+  const px={nusk:'nk',home:'hm',fouj:'fj',nishtha:'nt'}[key];
   const date=document.getElementById(px+'-d').value;
   const amount=parseFloat(document.getElementById(px+'-a').value)||0;
   const mRaw=document.getElementById(px+'-m').value;
